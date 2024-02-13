@@ -1,0 +1,18 @@
+name: tastymeals
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=tastymeals'
+      - 'POSTGRES_PASSWORD=tastymeals-secret'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '54322:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - type: bind
+        source: ./resources/db
+        target: /db
+
+volumes:
+  db-data:

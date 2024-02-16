@@ -92,12 +92,14 @@
   (-> {:select [:*] :from [:recipes] :order-by [[:id :desc]] :limit 1}
       (sql/format)
       (->> (jdbc/execute! db))
+      (->> (assoc-recipes-with-ingredients-and-steps))
       (->> first)
       ))
 
 (defn query-random-recipe []
   (-> ["SELECT * FROM recipes ORDER BY RANDOM() LIMIT 1"]
       (->> (jdbc/execute! db))
+      (->> (assoc-recipes-with-ingredients-and-steps))
       (->> first)
       ))
 

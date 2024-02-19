@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tastymeals/model/recipe.dart';
+import 'package:tastymeals/widgets/responsive_widget.dart';
 
 class RecipeWidget extends ConsumerWidget {
   final AsyncValue<Recipe> recipeFuture;
@@ -33,18 +34,24 @@ class RecipeWidget extends ConsumerWidget {
               const SizedBox(height: 32),
               const Placeholder(),
               const SizedBox(height: 32),
-              Row(
-                children: [
-                  Expanded(
-                      flex: 2,
-                      child: _buildTable(
-                          context, "Ingredients", recipe.ingredients)),
-                  const SizedBox(width: 18),
-                  Expanded(
-                      flex: 3,
-                      child: _buildTable(context, "Steps", recipe.steps)),
-                ],
-              )
+              ResponsiveWidget(
+                  mobile: Column(children: [
+                    _buildTable(context, "Ingredients", recipe.ingredients),
+                    const SizedBox(height: 32),
+                    _buildTable(context, "Steps", recipe.steps)
+                  ]),
+                  desktop: Row(
+                    children: [
+                      Expanded(
+                          flex: 2,
+                          child: _buildTable(
+                              context, "Ingredients", recipe.ingredients)),
+                      const SizedBox(width: 18),
+                      Expanded(
+                          flex: 3,
+                          child: _buildTable(context, "Steps", recipe.steps)),
+                    ],
+                  ))
             ]));
   }
 

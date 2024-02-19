@@ -16,12 +16,18 @@ class CategoriesWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allCategoriesFuture = ref.watch(allCategoriesFutureProvider);
+    return Card(
+        child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(flex: 1, child: _buildCategories(context, ref)),
+              const SizedBox(height: 16),
+              Expanded(flex: 2, child: _buildRecipes(context, ref)),
+            ])));
+  }
 
-    AsyncValue<List<Recipe>>? recipesFuture;
-    if (recipesByCategoryFutureProvider != null) {
-      recipesFuture = ref.watch(recipesByCategoryFutureProvider!);
-    }
+  Widget _buildCategories(BuildContext context, WidgetRef ref) {
+    final allCategoriesFuture = ref.watch(allCategoriesFutureProvider);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text("Categories", style: Theme.of(context).textTheme.titleLarge),
@@ -37,8 +43,17 @@ class CategoriesWidget extends ConsumerWidget {
                       onPressed: () => context.go("/category/${category.id}"),
                     ),
                   ])),
+    ]);
+  }
+
+  Widget _buildRecipes(BuildContext context, WidgetRef ref) {
+    AsyncValue<List<Recipe>>? recipesFuture;
+    if (recipesByCategoryFutureProvider != null) {
+      recipesFuture = ref.watch(recipesByCategoryFutureProvider!);
+    }
+
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (recipesFuture != null) ...[
-        const SizedBox(height: 32),
         Text("Recipes", style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
         ...recipesFuture.when(

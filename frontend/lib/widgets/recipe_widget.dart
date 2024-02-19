@@ -9,6 +9,13 @@ class RecipeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
+        child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: _buildRecipeContents(context, ref)));
+  }
+
+  Widget _buildRecipeContents(BuildContext context, WidgetRef ref) {
     return recipeFuture.when(
         loading: () => const Text("Loading recipe..."),
         error: (err, stack) {
@@ -20,18 +27,44 @@ class RecipeWidget extends ConsumerWidget {
         },
         data: (recipe) =>
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(recipe.name, style: Theme.of(context).textTheme.titleLarge),
+              Center(
+                  child: Text(recipe.name,
+                      style: Theme.of(context).textTheme.titleLarge)),
               const SizedBox(height: 32),
               const Placeholder(),
               const SizedBox(height: 32),
-              Text("Ingredients",
-                  style: Theme.of(context).textTheme.titleMedium),
-              ...recipe.ingredients.expand((ingredient) =>
-                  [const SizedBox(height: 10), Text("- $ingredient")]),
-              const SizedBox(height: 32),
-              Text("Steps", style: Theme.of(context).textTheme.titleMedium),
-              ...recipe.steps.expand(
-                  (step) => [const SizedBox(height: 10), Text("- $step")])
+              Row(
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: _buildTable(
+                          context, "Ingredients", recipe.ingredients)),
+                  const SizedBox(width: 18),
+                  Expanded(
+                      flex: 3,
+                      child: _buildTable(context, "Steps", recipe.steps)),
+                ],
+              )
             ]));
+  }
+
+  Widget _buildTable(BuildContext context, String title, List<String> items) {
+    return Table(border: TableBorder.all(), children: <TableRow>[
+      TableRow(
+          decoration: BoxDecoration(color: Colors.red[200]),
+          children: <Widget>[
+            Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0, vertical: 18.0),
+                child: Text(title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)))
+          ]),
+      ...items.map((item) => TableRow(children: <Widget>[
+            Padding(padding: const EdgeInsets.all(12.0), child: Text(item))
+          ]))
+    ]);
   }
 }

@@ -35,7 +35,9 @@ Widget buildScreenFrame(
                     children: [_buildAppTitle()])))),
     body: Center(
         child: Container(
-            constraints: const BoxConstraints(maxWidth: Breakpoints.md),
+            constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
             child: bodyWidget)),
     bottomNavigationBar: ResponsiveWidget(
         desktop: const SizedBox.shrink(),

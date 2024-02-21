@@ -10,10 +10,12 @@ class RecipeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-        child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: _buildRecipeContents(context, ref)));
+    return ListView(clipBehavior: Clip.none, children: [
+      Card(
+          child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: _buildRecipeContents(context, ref)))
+    ]);
   }
 
   Widget _buildRecipeContents(BuildContext context, WidgetRef ref) {
@@ -58,7 +60,7 @@ class RecipeWidget extends ConsumerWidget {
   Widget _buildTable(BuildContext context, String title, List<String> items) {
     return Table(border: TableBorder.all(), children: <TableRow>[
       TableRow(
-          decoration: BoxDecoration(color: Colors.red[200]),
+          decoration: const BoxDecoration(color: Colors.amber),
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.symmetric(
@@ -69,9 +71,11 @@ class RecipeWidget extends ConsumerWidget {
                         .bodyMedium
                         ?.copyWith(fontWeight: FontWeight.bold)))
           ]),
-      ...items.map((item) => TableRow(children: <Widget>[
-            Padding(padding: const EdgeInsets.all(12.0), child: Text(item))
-          ]))
+      ...items.map((item) => TableRow(
+              decoration: const BoxDecoration(color: Colors.white70),
+              children: <Widget>[
+                Padding(padding: const EdgeInsets.all(12.0), child: Text(item))
+              ]))
     ]);
   }
 }

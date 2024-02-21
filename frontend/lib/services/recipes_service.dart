@@ -6,6 +6,12 @@ import 'package:tastymeals/model/recipe.dart';
 class RecipesService {
   final _endpoint = 'http://localhost:8080/api/v1';
 
+  Future<Category> getCategory(int categoryId) async {
+    var response = await http.get(Uri.parse("$_endpoint/category/$categoryId"));
+
+    return Category.fromJson(jsonDecode(response.body));
+  }
+
   Future<List<Category>> getAllCategories() async {
     var response = await http.get(Uri.parse("$_endpoint/categories"));
     List<dynamic> data = jsonDecode(response.body);

@@ -11,9 +11,11 @@ class _Route {
   static const SEARCH = "/search";
 }
 
-Widget buildScreenFrame(
-    BuildContext context, int selectedScreen, Widget bodyWidget,
-    [TextEditingController? searchController]) {
+Widget buildScreenFrame(BuildContext context,
+    {required int selectedScreen,
+    required bool scrollable,
+    required Widget bodyWidget,
+    TextEditingController? searchController}) {
   return Scaffold(
     appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
@@ -23,7 +25,8 @@ Widget buildScreenFrame(
             alignment: Alignment.center,
             child: ResponsiveWidget(
                 desktop: Container(
-                    constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
+                    constraints: const BoxConstraints(
+                        maxWidth: Breakpoints.lg - 2 * 18.0),
                     child: Row(children: [
                       _buildAppTitle(),
                       const SizedBox(width: 48.0),
@@ -48,12 +51,9 @@ Widget buildScreenFrame(
                 mobile: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [_buildAppTitle()])))),
-    body: Center(
-        child: Container(
-            constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
-            padding: EdgeInsets.zero,
-            margin: EdgeInsets.zero,
-            child: bodyWidget)),
+    body: scrollable
+        ? SingleChildScrollView(child: Center(child: bodyWidget))
+        : Center(child: bodyWidget),
     bottomNavigationBar: ResponsiveWidget(
         desktop: const SizedBox.shrink(),
         mobile: NavigationBar(

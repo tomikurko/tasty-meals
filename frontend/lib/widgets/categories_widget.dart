@@ -29,6 +29,7 @@ class CategoriesWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
+        margin: const EdgeInsets.all(18.0),
         child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: ResponsiveWidget(

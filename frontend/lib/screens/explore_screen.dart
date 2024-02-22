@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tastymeals/providers/random_recipe_future_provider.dart';
+import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/explore_widget.dart';
 import 'package:tastymeals/widgets/screen_frame.dart';
 
@@ -16,7 +17,11 @@ class ExploreScreen extends ConsumerWidget {
       refreshed = true;
     }
 
-    return buildScreenFrame(context, 2,
-        Padding(padding: const EdgeInsets.all(18.0), child: ExploreWidget()));
+    return buildScreenFrame(context,
+        selectedScreen: 2,
+        scrollable: true,
+        bodyWidget: Container(
+            constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
+            child: ExploreWidget()));
   }
 }

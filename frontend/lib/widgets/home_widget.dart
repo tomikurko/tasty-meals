@@ -5,18 +5,21 @@ import 'package:tastymeals/model/category.dart';
 import 'package:tastymeals/providers/all_categories_future_provider.dart';
 import 'package:tastymeals/providers/latest_recipe_future_provider.dart';
 import 'package:tastymeals/providers/top_categories_future_provider.dart';
+import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/category_preview_card.dart';
 import 'package:tastymeals/widgets/recipe_preview_card.dart';
 
 class HomeWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(clipBehavior: Clip.none, children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      const SizedBox(height: 18.0),
       _buildLatestRecipe(context, ref),
-      const SizedBox(height: 16),
+      const SizedBox(height: 18.0),
       _buildTopRecipeCategories(context, ref),
-      const SizedBox(height: 16),
+      const SizedBox(height: 18.0),
       _buildAllRecipeCategories(context, ref),
+      const SizedBox(height: 18.0),
     ]);
   }
 
@@ -24,6 +27,7 @@ class HomeWidget extends ConsumerWidget {
     final latestRecipeFuture = ref.watch(latestRecipeFutureProvider);
 
     return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Padding(
             padding: const EdgeInsets.all(18.0),
             child:
@@ -46,6 +50,7 @@ class HomeWidget extends ConsumerWidget {
     final topCategoriesFuture = ref.watch(topCategoriesFutureProvider);
 
     return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Padding(
             padding: const EdgeInsets.all(18.0),
             child:
@@ -67,6 +72,7 @@ class HomeWidget extends ConsumerWidget {
     final allCategoriesFuture = ref.watch(allCategoriesFutureProvider);
 
     return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Padding(
             padding: const EdgeInsets.all(18.0),
             child:

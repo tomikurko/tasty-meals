@@ -13,12 +13,14 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildScreenFrame(
-        context,
-        3,
-        Padding(
-            padding: const EdgeInsets.all(18.0),
+    return buildScreenFrame(context,
+        selectedScreen: 3,
+        scrollable: false,
+        searchController: searchController,
+        bodyWidget: Container(
+            constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
             child: Card(
+                margin: const EdgeInsets.all(18.0),
                 child: Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: MediaQuery.of(context).size.width > Breakpoints.md
@@ -38,7 +40,6 @@ class SearchScreen extends StatelessWidget {
                                 const SizedBox(height: 38.0),
                                 Expanded(
                                     child: SearchResultsWidget(searchString))
-                              ])))),
-        searchController);
+                              ])))));
   }
 }

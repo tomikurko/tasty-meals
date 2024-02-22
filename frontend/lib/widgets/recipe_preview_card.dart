@@ -24,6 +24,7 @@ class RecipePreviewCard extends StatelessWidget {
               const SizedBox(height: 12.0),
               TextButton(
                 child: Text(recipe.name,
+                    overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.amber, fontWeight: FontWeight.bold)),
                 onPressed: () =>

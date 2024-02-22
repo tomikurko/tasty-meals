@@ -37,16 +37,12 @@ class CategoriesWidget extends ConsumerWidget {
                 desktop: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(flex: 1, child: _buildCategories(context, ref)),
+                      Container(
+                          width: 300.0, child: _buildCategories(context, ref)),
                       const SizedBox(width: 24),
                       Container(width: 1.0, color: Colors.amber),
                       const SizedBox(width: 24),
-                      Expanded(
-                          flex:
-                              MediaQuery.of(context).size.width < Breakpoints.md
-                                  ? 1
-                                  : 2,
-                          child: _buildRecipes("Recipes", context, ref)),
+                      Expanded(child: _buildRecipes("Recipes", context, ref)),
                     ]),
                 mobile: selectedCategoryId != null
                     ? _buildRecipesMobile(context, ref)

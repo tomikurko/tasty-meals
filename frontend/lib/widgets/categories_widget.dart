@@ -6,26 +6,18 @@ import 'package:go_router/go_router.dart';
 import 'package:tastymeals/model/category.dart';
 import 'package:tastymeals/model/recipe.dart';
 import 'package:tastymeals/providers/all_categories_future_provider.dart';
-import 'package:tastymeals/providers/category_future_provider.dart';
-import 'package:tastymeals/providers/recipes_by_category_future_provider.dart';
 import 'package:tastymeals/routes/screen_route.dart';
-import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/category_list_item.dart';
 import 'package:tastymeals/widgets/recipe_preview_card.dart';
 import 'package:tastymeals/widgets/responsive_widget.dart';
 
 class CategoriesWidget extends ConsumerWidget {
   final int? selectedCategoryId;
-  final FutureProvider<Category>? categoryFutureProvider;
-  final FutureProvider<List<Recipe>>? recipesByCategoryFutureProvider;
+  final AsyncValue<Category>? categoryFuture;
+  final AsyncValue<List<Recipe>>? recipesFuture;
 
-  CategoriesWidget(this.selectedCategoryId)
-      : categoryFutureProvider = selectedCategoryId != null
-            ? getCategoryFutureProvider(selectedCategoryId)
-            : null,
-        recipesByCategoryFutureProvider = selectedCategoryId != null
-            ? getRecipesByCategoryFutureProvider(selectedCategoryId)
-            : null;
+  CategoriesWidget(
+      this.selectedCategoryId, this.categoryFuture, this.recipesFuture);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -74,9 +66,7 @@ class CategoriesWidget extends ConsumerWidget {
   }
 
   Widget _buildRecipesMobile(BuildContext context, WidgetRef ref) {
-    final categoryFuture = ref.watch(categoryFutureProvider!);
-
-    final categoryName = categoryFuture.when(
+    final categoryName = categoryFuture!.when(
         loading: () => "",
         error: (err, stack) => "Recipes",
         data: (category) => category.name);
@@ -92,16 +82,11 @@ class CategoriesWidget extends ConsumerWidget {
   }
 
   Widget _buildRecipes(String title, BuildContext context, WidgetRef ref) {
-    AsyncValue<List<Recipe>>? recipesFuture;
-    if (recipesByCategoryFutureProvider != null) {
-      recipesFuture = ref.watch(recipesByCategoryFutureProvider!);
-    }
-
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       if (recipesFuture != null) ...[
         Text(title, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
-        recipesFuture.when(
+        recipesFuture!.when(
             loading: () => const Text("Loading recipes..."),
             error: (err, stack) => const Text("Failed to load recipes!"),
             data: (recipes) => recipes.isEmpty

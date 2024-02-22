@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastymeals/model/recipe.dart';
 import 'package:tastymeals/model/screen_index.dart';
+import 'package:tastymeals/providers/recipes_by_name_future_provider.dart';
 import 'package:tastymeals/routes/screen_route.dart';
 import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/screen_frame.dart';
 import 'package:tastymeals/widgets/search_results_widget.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends ConsumerWidget {
   final String searchString;
+  final FutureProvider<List<Recipe>> recipesByNameFutureProvider;
   final TextEditingController searchController;
 
   SearchScreen(this.searchString)
-      : searchController = TextEditingController(text: searchString);
+      : searchController = TextEditingController(text: searchString),
+        recipesByNameFutureProvider =
+            getRecipesByNameFutureProvider(searchString);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recipesFuture = ref.watch(recipesByNameFutureProvider);
+
     return buildScreenFrame(context,
         selectedScreen: ScreenIndex.search,
         scrollable: false,
@@ -26,7 +34,7 @@ class SearchScreen extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: MediaQuery.of(context).size.width > Breakpoints.md
-                        ? SearchResultsWidget(searchString)
+                        ? SearchResultsWidget(searchString, recipesFuture)
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -41,7 +49,8 @@ class SearchScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 38.0),
                                 Expanded(
-                                    child: SearchResultsWidget(searchString))
+                                    child: SearchResultsWidget(
+                                        searchString, recipesFuture))
                               ])))));
   }
 }

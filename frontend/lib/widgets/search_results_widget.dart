@@ -3,16 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tastymeals/model/recipe.dart';
-import 'package:tastymeals/providers/recipes_by_name_future_provider.dart';
 import 'package:tastymeals/widgets/recipe_preview_card.dart';
 
 class SearchResultsWidget extends ConsumerWidget {
   final String searchString;
-  final FutureProvider<List<Recipe>> recipesByNameFutureProvider;
+  AsyncValue<List<Recipe>> recipesFuture;
 
-  SearchResultsWidget(this.searchString)
-      : recipesByNameFutureProvider =
-            getRecipesByNameFutureProvider(searchString);
+  SearchResultsWidget(this.searchString, this.recipesFuture);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,8 +22,6 @@ class SearchResultsWidget extends ConsumerWidget {
   }
 
   Widget _buildRecipes(String title, BuildContext context, WidgetRef ref) {
-    final recipesFuture = ref.watch(recipesByNameFutureProvider);
-
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Text(title, style: Theme.of(context).textTheme.titleLarge),
       const SizedBox(height: 16),

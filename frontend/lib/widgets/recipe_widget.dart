@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tastymeals/model/recipe.dart';
-import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/responsive_widget.dart';
 
 class RecipeWidget extends ConsumerWidget {

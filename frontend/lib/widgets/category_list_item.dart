@@ -12,17 +12,22 @@ class CategoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        shape: Border.all(),
-        elevation: 1.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         color: Colors.white,
         surfaceTintColor: Colors.amber[50],
         child: ListTile(
-            shape: Border.all(),
             leading:
                 const AspectRatio(aspectRatio: 3 / 2, child: Placeholder()),
-            title: Text(category.name),
+            title: Text(category.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(fontWeight: FontWeight.bold)),
             selected: selected,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             contentPadding: const EdgeInsets.all(18.0),
+            horizontalTitleGap: 25.0,
             hoverColor: Colors.amber[50],
             selectedTileColor: Colors.amber[100],
             onTap: () => context.go("${ScreenRoute.category}/${category.id}")));

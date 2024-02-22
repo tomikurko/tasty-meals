@@ -38,7 +38,9 @@ class CategoriesWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(flex: 1, child: _buildCategories(context, ref)),
-                      const SizedBox(width: 32),
+                      const SizedBox(width: 24),
+                      Container(width: 1.0, color: Colors.amber),
+                      const SizedBox(width: 24),
                       Expanded(
                           flex:
                               MediaQuery.of(context).size.width < Breakpoints.md

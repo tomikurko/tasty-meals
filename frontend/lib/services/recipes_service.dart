@@ -27,8 +27,16 @@ class RecipesService {
   }
 
   Future<List<Recipe>> getRecipesByCategory(int categoryId) async {
-    var response =
-        await http.get(Uri.parse("$_endpoint/recipes?category=$categoryId"));
+    var response = await http.get(Uri.parse("$_endpoint/recipes")
+        .replace(queryParameters: {'category': categoryId.toString()}));
+    List<dynamic> data = jsonDecode(response.body);
+
+    return data.map((recipeData) => Recipe.fromJson(recipeData)).toList();
+  }
+
+  Future<List<Recipe>> getRecipesByName(String name) async {
+    var response = await http.get(Uri.parse("$_endpoint/recipes")
+        .replace(queryParameters: {'nameContains': name}));
     List<dynamic> data = jsonDecode(response.body);
 
     return data.map((recipeData) => Recipe.fromJson(recipeData)).toList();

@@ -8,10 +8,12 @@ class _Route {
   static const HOME = "/";
   static const CATEGORIES = "/categories";
   static const EXPLORE = "/explore";
+  static const SEARCH = "/search";
 }
 
 Widget buildScreenFrame(
-    BuildContext context, int selectedScreen, Widget bodyWidget) {
+    BuildContext context, int selectedScreen, Widget bodyWidget,
+    [TextEditingController? searchController]) {
   return Scaffold(
     appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
@@ -29,6 +31,19 @@ Widget buildScreenFrame(
                       _buildTopBarLink(
                           "CATEGORIES", _Route.CATEGORIES, context),
                       _buildTopBarLink("EXPLORE", _Route.EXPLORE, context),
+                      const Spacer(),
+                      MediaQuery.of(context).size.width > Breakpoints.md
+                          ? SearchBar(
+                              controller: searchController,
+                              constraints: const BoxConstraints(
+                                  maxWidth: 250.0, minHeight: 35.0),
+                              leading: const Icon(Icons.search),
+                              onSubmitted: (value) => context.go(
+                                  "/search/${value.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '')}"),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.search),
+                              onPressed: () => context.go("/search"))
                     ])),
                 mobile: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -50,6 +65,8 @@ Widget buildScreenFrame(
                 context.go(_Route.CATEGORIES);
               case 2:
                 context.go(_Route.EXPLORE);
+              case 3:
+                context.go(_Route.SEARCH);
               default:
                 assert(false, "Unknown destination");
             }
@@ -59,6 +76,7 @@ Widget buildScreenFrame(
             NavigationDestination(
                 icon: Icon(Icons.category), label: "Categories"),
             NavigationDestination(icon: Icon(Icons.explore), label: "Explore"),
+            NavigationDestination(icon: Icon(Icons.search), label: "Search"),
           ],
           selectedIndex: selectedScreen,
         )),

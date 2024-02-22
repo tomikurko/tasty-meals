@@ -3,6 +3,7 @@ import 'package:tastymeals/screens/categories_screen.dart';
 import 'package:tastymeals/screens/explore_screen.dart';
 import 'package:tastymeals/screens/home_screen.dart';
 import 'package:tastymeals/screens/recipe_screen.dart';
+import 'package:tastymeals/screens/search_screen.dart';
 
 final router = GoRouter(routes: [
   GoRoute(
@@ -26,4 +27,12 @@ final router = GoRouter(routes: [
       path: '/recipe/:recipeId',
       pageBuilder: (context, state) => NoTransitionPage<void>(
           child: RecipeScreen(int.parse(state.pathParameters['recipeId']!)))),
+  GoRoute(
+      path: '/search',
+      pageBuilder: (context, state) =>
+          NoTransitionPage<void>(child: SearchScreen(""))),
+  GoRoute(
+      path: '/search/:searchString',
+      pageBuilder: (context, state) => NoTransitionPage<void>(
+          child: SearchScreen(state.pathParameters['searchString']!))),
 ]);

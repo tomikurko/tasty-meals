@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tastymeals/model/recipe.dart';
+import 'package:tastymeals/routes/screen_route.dart';
 
 class RecipePreviewCard extends StatelessWidget {
   final Recipe recipe;
@@ -25,7 +26,8 @@ class RecipePreviewCard extends StatelessWidget {
                 child: Text(recipe.name,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.amber, fontWeight: FontWeight.bold)),
-                onPressed: () => context.go("/recipe/${recipe.id}"),
+                onPressed: () =>
+                    context.go("${ScreenRoute.recipe}/${recipe.id}"),
               )
             ])));
   }

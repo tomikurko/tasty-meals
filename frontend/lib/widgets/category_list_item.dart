@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tastymeals/model/category.dart';
+import 'package:tastymeals/routes/screen_route.dart';
 
 class CategoryListItem extends StatelessWidget {
   final Category category;
@@ -24,6 +25,6 @@ class CategoryListItem extends StatelessWidget {
             contentPadding: const EdgeInsets.all(18.0),
             hoverColor: Colors.amber[50],
             selectedTileColor: Colors.amber[100],
-            onTap: () => context.go("/category/${category.id}")));
+            onTap: () => context.go("${ScreenRoute.category}/${category.id}")));
   }
 }

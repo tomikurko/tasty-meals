@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tastymeals/model/screen_index.dart';
 import 'package:tastymeals/providers/random_recipe_future_provider.dart';
 import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/explore_widget.dart';
@@ -18,7 +19,7 @@ class ExploreScreen extends ConsumerWidget {
     }
 
     return buildScreenFrame(context,
-        selectedScreen: 2,
+        selectedScreen: ScreenIndex.explore,
         scrollable: true,
         bodyWidget: Container(
             constraints: const BoxConstraints(maxWidth: Breakpoints.lg),

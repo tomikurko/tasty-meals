@@ -8,6 +8,7 @@ import 'package:tastymeals/model/recipe.dart';
 import 'package:tastymeals/providers/all_categories_future_provider.dart';
 import 'package:tastymeals/providers/category_future_provider.dart';
 import 'package:tastymeals/providers/recipes_by_category_future_provider.dart';
+import 'package:tastymeals/routes/screen_route.dart';
 import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/category_list_item.dart';
 import 'package:tastymeals/widgets/recipe_preview_card.dart';
@@ -85,7 +86,7 @@ class CategoriesWidget extends ConsumerWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       IconButton.filledTonal(
           iconSize: 32.0,
-          onPressed: () => context.go("/categories"),
+          onPressed: () => context.go(ScreenRoute.categories),
           icon: const Icon(Icons.arrow_back)),
       const SizedBox(height: 32.0),
       Expanded(child: _buildRecipes(categoryName, context, ref))

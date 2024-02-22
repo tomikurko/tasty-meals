@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tastymeals/model/recipe.dart';
+import 'package:tastymeals/model/screen_index.dart';
 import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/recipe_widget.dart';
 import 'package:tastymeals/widgets/screen_frame.dart';
@@ -18,7 +19,7 @@ class RecipeScreen extends ConsumerWidget {
     final recipeFuture = ref.watch(recipeFutureProvider);
 
     return buildScreenFrame(context,
-        selectedScreen: 1,
+        selectedScreen: ScreenIndex.categories,
         scrollable: true,
         bodyWidget: Container(
             constraints: const BoxConstraints(maxWidth: Breakpoints.lg),

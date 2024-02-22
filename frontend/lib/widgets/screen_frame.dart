@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tastymeals/routes/screen_route.dart';
 import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/responsive_widget.dart';
-
-class _Route {
-  static const HOME = "/";
-  static const CATEGORIES = "/categories";
-  static const EXPLORE = "/explore";
-  static const SEARCH = "/search";
-}
 
 Widget buildScreenFrame(BuildContext context,
     {required int selectedScreen,
@@ -30,10 +24,10 @@ Widget buildScreenFrame(BuildContext context,
                     child: Row(children: [
                       _buildAppTitle(),
                       const SizedBox(width: 48.0),
-                      _buildTopBarLink("HOME", _Route.HOME, context),
+                      _buildTopBarLink("HOME", ScreenRoute.home, context),
                       _buildTopBarLink(
-                          "CATEGORIES", _Route.CATEGORIES, context),
-                      _buildTopBarLink("EXPLORE", _Route.EXPLORE, context),
+                          "CATEGORIES", ScreenRoute.categories, context),
+                      _buildTopBarLink("EXPLORE", ScreenRoute.explore, context),
                       const Spacer(),
                       MediaQuery.of(context).size.width > Breakpoints.md
                           ? SearchBar(
@@ -42,11 +36,11 @@ Widget buildScreenFrame(BuildContext context,
                                   maxWidth: 250.0, minHeight: 35.0),
                               leading: const Icon(Icons.search),
                               onSubmitted: (value) => context.go(
-                                  "/search/${value.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '')}"),
+                                  "${ScreenRoute.search}/${value.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '')}"),
                             )
                           : IconButton(
                               icon: const Icon(Icons.search),
-                              onPressed: () => context.go("/search"))
+                              onPressed: () => context.go(ScreenRoute.search))
                     ])),
                 mobile: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,13 +54,13 @@ Widget buildScreenFrame(BuildContext context,
           onDestinationSelected: (int index) {
             switch (index) {
               case 0:
-                context.go(_Route.HOME);
+                context.go(ScreenRoute.home);
               case 1:
-                context.go(_Route.CATEGORIES);
+                context.go(ScreenRoute.categories);
               case 2:
-                context.go(_Route.EXPLORE);
+                context.go(ScreenRoute.explore);
               case 3:
-                context.go(_Route.SEARCH);
+                context.go(ScreenRoute.search);
               default:
                 assert(false, "Unknown destination");
             }

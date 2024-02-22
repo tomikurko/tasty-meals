@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tastymeals/model/category.dart';
+import 'package:tastymeals/routes/screen_route.dart';
 
 class CategoryPreviewCard extends StatelessWidget {
   final Category category;
@@ -26,7 +27,8 @@ class CategoryPreviewCard extends StatelessWidget {
                   child: Text(category.name,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.amber, fontWeight: FontWeight.bold)),
-                  onPressed: () => context.go("/category/${category.id}"),
+                  onPressed: () =>
+                      context.go("${ScreenRoute.category}/${category.id}"),
                 ),
                 if (category.numRecipes != null) ...[
                   const SizedBox(height: 12.0),

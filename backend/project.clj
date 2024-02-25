@@ -1,4 +1,4 @@
-(defproject tastymeals "0.1.0-SNAPSHOT"
+(defproject tastymeals "1.0.0"
   :description "The backend of Tasty Meals, a cross-platform recipe application"
   :dependencies [[org.clojure/clojure "1.11.1"]
                  ; Compojure - A basic routing library

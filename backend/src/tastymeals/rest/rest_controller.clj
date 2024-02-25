@@ -11,10 +11,10 @@
 (def db-config
   {:dbtype "postgresql"
    :dbname "tastymeals"
-   :host "localhost"
-   :port 54322
+   :host "postgres"
+   :port 5432
    :user "postgres"
-   :password "tastymeals-secret"})
+   :password (System/getenv "POSTGRES_PASSWORD")})
 
 (def db (jdbc/get-datasource db-config))
 

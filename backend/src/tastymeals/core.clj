@@ -8,7 +8,7 @@
 (def app
   (-> rest-controller/app-routes
       (wrap-cors
-       :access-control-allow-origin [#"http://localhost:3000"]
+       :access-control-allow-origin [#"http://localhost:3000", #"http://www.tastymeals.site"]
        :access-control-allow-methods [:get :post :delete])
       (->> compojure.handler/api)))
 

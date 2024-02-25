@@ -4,7 +4,8 @@ import 'package:tastymeals/model/category.dart';
 import 'package:tastymeals/model/recipe.dart';
 
 class RecipesService {
-  final _endpoint = 'http://localhost:8080/api/v1';
+  final _endpoint = 'http://52.138.179.120:8080/api/v1';
+  //final _endpoint = 'http://localhost:8080/api/v1';
 
   Future<Category> getCategory(int categoryId) async {
     var response = await http.get(Uri.parse("$_endpoint/category/$categoryId"));

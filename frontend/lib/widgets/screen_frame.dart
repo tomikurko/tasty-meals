@@ -5,6 +5,8 @@ import 'package:tastymeals/routes/screen_route.dart';
 import 'package:tastymeals/widgets/breakpoints.dart';
 import 'package:tastymeals/widgets/responsive_widget.dart';
 
+const topBarHeight = 80.0;
+
 Widget buildScreenFrame(BuildContext context,
     {required int selectedScreen,
     required bool scrollable,
@@ -12,7 +14,7 @@ Widget buildScreenFrame(BuildContext context,
     TextEditingController? searchController}) {
   return Scaffold(
     appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(topBarHeight),
         child: Container(
             decoration: const BoxDecoration(color: Colors.white),
             padding: const EdgeInsets.all(18.0),

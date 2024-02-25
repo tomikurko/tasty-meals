@@ -31,11 +31,19 @@ class CategoriesScreen extends ConsumerWidget {
         ? ref.watch(recipesByCategoryFutureProvider!)
         : null;
 
+    final screenHeight = MediaQuery.of(context).size.height;
+    const bodyMinHeight = 500.0;
+    const screenHeightThresholdForBodyScrolling = bodyMinHeight + topBarHeight;
+
     return buildScreenFrame(context,
         selectedScreen: ScreenIndex.categories,
-        scrollable: false,
+        scrollable: screenHeight < screenHeightThresholdForBodyScrolling,
         bodyWidget: Container(
-            constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
+            constraints: BoxConstraints(
+                maxWidth: Breakpoints.lg,
+                maxHeight: screenHeight < screenHeightThresholdForBodyScrolling
+                    ? bodyMinHeight
+                    : double.infinity),
             child: CategoriesWidget(
                 selectedCategoryId, categoryFuture, recipesFuture)));
   }

@@ -23,12 +23,20 @@ class SearchScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final recipesFuture = ref.watch(recipesByNameFutureProvider);
 
+    final screenHeight = MediaQuery.of(context).size.height;
+    const bodyMinHeight = 500.0;
+    const screenHeightThresholdForBodyScrolling = bodyMinHeight + topBarHeight;
+
     return buildScreenFrame(context,
         selectedScreen: ScreenIndex.search,
-        scrollable: false,
+        scrollable: screenHeight < screenHeightThresholdForBodyScrolling,
         searchController: searchController,
         bodyWidget: Container(
-            constraints: const BoxConstraints(maxWidth: Breakpoints.lg),
+            constraints: BoxConstraints(
+                maxWidth: Breakpoints.lg,
+                maxHeight: screenHeight < screenHeightThresholdForBodyScrolling
+                    ? bodyMinHeight
+                    : double.infinity),
             child: Card(
                 margin: const EdgeInsets.all(18.0),
                 child: Padding(

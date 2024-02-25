@@ -42,6 +42,7 @@ class RecipeWidget extends ConsumerWidget {
                       _buildTable(context, "Steps", recipe.steps)
                     ]),
                     desktop: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 2,

@@ -29,9 +29,9 @@ class RecipeWidget extends ConsumerWidget {
             return [const Text("Failed to load a recipe!")];
           },
           data: (recipe) => [
-                Center(
-                    child: Text(recipe.name,
-                        style: Theme.of(context).textTheme.titleLarge)),
+                Text(recipe.name,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 32),
                 const Placeholder(),
                 const SizedBox(height: 32),

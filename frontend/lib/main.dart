@@ -6,6 +6,7 @@ import 'package:tastymeals/routes/router_config.dart';
 void main() {
   runApp(ProviderScope(
       child: MaterialApp.router(
+          title: "Tasty Meals",
           routerConfig: router,
           theme: ThemeData(
               useMaterial3: true,

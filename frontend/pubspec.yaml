@@ -1,7 +1,7 @@
 name: tastymeals
 description: "A cross-platform recipe application."
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: '>=3.2.2 <4.0.0'
